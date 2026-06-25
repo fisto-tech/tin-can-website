@@ -1,13 +1,14 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import { useGSAP } from "@gsap/react";
 
 const FramesSection = () => {
   const canvasRef = useRef(null);
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);
 
-  useEffect(() => {
+  useGSAP(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
@@ -25,7 +26,6 @@ const FramesSection = () => {
       const img = new Image();
       img.src = currentFrame(i);
       img.onload = () => {
-        // If the currently needed frame just finished loading, render it!
         if (Math.round(frames.frame) === i) {
           render();
         }
@@ -47,8 +47,8 @@ const FramesSection = () => {
       scrollTrigger: {
         trigger: sectionRef.current,
         start: "top top",
-        end: "+=400%", // Increase scroll duration slightly for better pacing
-        scrub: 1, // Make scrub slightly smoother (1 second catchup)
+        end: "+=400%",
+        scrub: 1,
         pin: true,
       },
     });
@@ -60,7 +60,6 @@ const FramesSection = () => {
       onUpdate: render,
     });
 
-    // Card animations synced to scroll
     cardsRef.current.forEach((card, i) => {
       const isLast = i === cardsRef.current.length - 1;
       tl.fromTo(
@@ -73,13 +72,7 @@ const FramesSection = () => {
         tl.to(card, { opacity: 0, y: -50, duration: 0.1 }, "+=0.15");
       }
     });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((t) => {
-        if (t.trigger === sectionRef.current) t.kill();
-      });
-    };
-  }, []);
+  }, { scope: sectionRef });
 
   const addToCardsRef = (el) => {
     if (el && !cardsRef.current.includes(el)) {
