@@ -72,7 +72,8 @@ const NutritionSection = () => {
         className="w-full object-cover"
       />
 
-      <img src="/images/big-image.webp" alt="" className="big-img" />
+      {/* <img src="/images/big-image.webp" alt="" className="big-img" /> */}
+      <img src="/images/big-img.webp" alt="" className="big-img" />
 
       <div className="flex md:flex-row flex-col justify-between md:px-10 px-5 mt-14 md:mt-0">
         <div className="relative inline-block md:translate-y-20">
@@ -87,7 +88,7 @@ const NutritionSection = () => {
               className="nutrition-text-scroll place-self-start"
             >
               <div className="bg-yellow-brown pb-5 md:pt-0 pt-3 md:px-5 px-3">
-                <h2 className="text-milk-yellow">Coconut Tender</h2>
+                <h2 className="text-white">Coconut Tender</h2>
               </div>
             </div>
           </div>
