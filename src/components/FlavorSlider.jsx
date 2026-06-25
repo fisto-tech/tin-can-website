@@ -147,7 +147,7 @@ const FlavorSlider = () => {
       <div className="flavors">
         {flavorlists.map((flavor) => (
           <div
-            key={flavor.name}
+            key={flavor.productName}
             className={`flavor-card relative z-30 lg:w-[50vw] w-96 lg:h-[70vh] md:w-[90vw] md:h-[50vh] h-80 flex-none ${flavor.rotation}`}
           >
             <img
@@ -157,20 +157,20 @@ const FlavorSlider = () => {
             />
 
             <img
-              src={`/images/${flavor.color}-drink.webp`}
+              src={`/images/slider-assets/products/${flavor.productImage}.webp`}
               alt=""
               className="drinks"
             />
 
             <div className="elements-wrapper absolute inset-0">
               <img
-                src={`/images/${flavor.color}-elements.webp`}
+                src={`/images/slider-assets/props/${flavor.productProps}.webp`}
                 alt=""
                 className="elements pointer-events-none"
               />
             </div>
 
-            <h1>{flavor.name}</h1>
+            <h1>{flavor.productName}</h1>
           </div>
         ))}
       </div>

@@ -88,7 +88,7 @@ const HeroSection = () => {
         )}
         <div className="hero-content opacity-0">
           <div className="overflow-hidden">
-            <h1 className="hero-title">Freaking Delicious</h1>
+            <h1 className="hero-title">Nature's Finest Sip</h1>
           </div>
           <div
             style={{
@@ -97,17 +97,17 @@ const HeroSection = () => {
             className="hero-text-scroll"
           >
             <div className="hero-subtitle">
-              <h1>Protein + Caffine </h1>
+              <h1>Coconut Tender</h1>
             </div>
           </div>
 
           <h2>
-            Live life to the fullest  with Zestra: Shatter boredom and embrace
-            your inner kid with every deliciously smooth chug.
+            Pure. Refreshing. Real. Zestra Coconut Tender brings you the crisp,
+            natural sweetness of tender coconut — sealed fresh in every can.
           </h2>
 
           <div className="hero-button">
-            <p>Chug a Zestra</p>
+            <p>Crack Open a Zestra</p>
           </div>
         </div>
       </div>

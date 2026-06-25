@@ -47,43 +47,43 @@ const BenefitSection = () => {
       <div className="container mx-auto pt-20">
         <div className="col-center">
           <p>
-            Unlock the Advantages: <br />
+            Pure Goodness Inside: <br />
             Explore the Key Benefits of Choosing Zestra
           </p>
 
           <div className="mt-20 col-center">
             <ClipPathTitle
-              title={"Shelf stable"}
+              title={"100% Natural"}
               color={"#faeade"}
-              bg={"#c88e64"}
+              bg={"#f5a623"}
               className={"first-title"}
-              borderColor={"#222123"}
+              borderColor={"#053319"}
             />
             <ClipPathTitle
-              title={"Protein + Caffeine"}
-              color={"#222123"}
+              title={"Rich in Electrolytes"}
+              color={"#084924"}
               bg={"#faeade"}
               className={"second-title"}
-              borderColor={"#222123"}
+              borderColor={"#053319"}
             />
             <ClipPathTitle
-              title={"Infinitely recyclable"}
+              title={"Zero Preservatives"}
               color={"#faeade"}
-              bg={"#7F3B2D"}
+              bg={"#084924"}
               className={"third-title"}
-              borderColor={"#222123"}
+              borderColor={"#053319"}
             />
             <ClipPathTitle
-              title={"Lactose free"}
-              color={"#2E2D2F"}
-              bg={"#FED775"}
+              title={"Recyclable Tin Can"}
+              color={"#faeade"}
+              bg={"#40a036"}
               className={"fourth-title"}
-              borderColor={"#222123"}
+              borderColor={"#053319"}
             />
           </div>
 
           <div className="md:mt-0 mt-10">
-            <p>And much more ...</p>
+            <p>And so much more in every can ...</p>
           </div>
         </div>
       </div>

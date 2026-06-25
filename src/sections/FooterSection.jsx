@@ -60,13 +60,13 @@ const FooterSection = () => {
           {/* Socials */}
           <div className="flex gap-6">
             <a href="#" className="flex items-center justify-center hover:scale-110 hover:-translate-y-1 transition-all opacity-80 hover:opacity-100">
-              <img src="./images/insta.svg" alt="Instagram" className="w-6 h-6 invert" />
+              <img src="./images/insta.svg" alt="Instagram" className="w-6 h-6" />
             </a>
             <a href="#" className="flex items-center justify-center hover:scale-110 hover:-translate-y-1 transition-all opacity-80 hover:opacity-100">
-              <img src="./images/tiktok.svg" alt="TikTok" className="w-6 h-6 invert" />
+              <img src="./images/tiktok.svg" alt="TikTok" className="w-6 h-6" />
             </a>
             <a href="#" className="flex items-center justify-center hover:scale-110 hover:-translate-y-1 transition-all opacity-80 hover:opacity-100">
-              <img src="./images/yt.svg" alt="YouTube" className="w-6 h-6 invert" />
+              <img src="./images/yt.svg" alt="YouTube" className="w-6 h-6" />
             </a>
           </div>
           
