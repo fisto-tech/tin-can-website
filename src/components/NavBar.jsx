@@ -32,20 +32,19 @@ const NavBar = () => {
           isOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'
         }`}
       >
-        <div className="flex flex-col items-center gap-8 text-white font-header text-3xl md:text-5xl uppercase tracking-widest mt-10">
+        <div className="flex flex-col items-center gap-8 text-[#ffffff] font-sans font-bold text-3xl md:text-5xl uppercase tracking-widest mt-10">
           <a href="#home" onClick={() => setIsOpen(false)} className="hover:text-gray-400 hover:scale-105 transition-all">Home</a>
           <a href="#about-us" onClick={() => setIsOpen(false)} className="hover:text-gray-400 hover:scale-105 transition-all">About Us</a>
           <a href="#flavors" onClick={() => setIsOpen(false)} className="hover:text-gray-400 hover:scale-105 transition-all">All Flavors</a>
           <a href="#nutrition" onClick={() => setIsOpen(false)} className="hover:text-gray-400 hover:scale-105 transition-all">Nutrition</a>
-          <a href="#chug-club" onClick={() => setIsOpen(false)} className="hover:text-gray-400 hover:scale-105 transition-all">Reviews</a>
           <a href="#contact" onClick={() => setIsOpen(false)} className="hover:text-gray-400 hover:scale-105 transition-all">Contact Us</a>
         </div>
         
         {/* Footer info inside menu */}
         <div className="absolute bottom-10 flex gap-6 text-[#888]">
-          <a href="#" className="hover:text-white transition-colors"><img src="/images/insta.svg" alt="IG" className="w-6 h-6 invert opacity-60 hover:opacity-100" /></a>
-          <a href="#" className="hover:text-white transition-colors"><img src="/images/tiktok.svg" alt="TK" className="w-6 h-6 invert opacity-60 hover:opacity-100" /></a>
-          <a href="#" className="hover:text-white transition-colors"><img src="/images/yt.svg" alt="YT" className="w-6 h-6 invert opacity-60 hover:opacity-100" /></a>
+          <a href="#" className="hover:text-white transition-colors"><img src="/images/insta.svg" alt="IG" className="w-6 h-6  opacity-60 hover:opacity-100" /></a>
+          <a href="#" className="hover:text-white transition-colors"><img src="/images/tiktok.svg" alt="TK" className="w-6 h-6  opacity-60 hover:opacity-100" /></a>
+          <a href="#" className="hover:text-white transition-colors"><img src="/images/yt.svg" alt="YT" className="w-6 h-6  opacity-60 hover:opacity-100" /></a>
         </div>
       </div>
     </>

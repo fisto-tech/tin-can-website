@@ -47,10 +47,9 @@ const FooterSection = () => {
           <div className="md:col-span-3">
             <h3 className="text-white text-base font-bold mb-5 tracking-wider uppercase">Explore</h3>
             <ul className="space-y-4 text-gray-300 text-base font-normal">
-              <li><a href="#" className="hover:text-white hover:pl-1 transition-all duration-300">Home</a></li>
-              <li><a href="#" className="hover:text-white hover:pl-1 transition-all duration-300">All Flavors</a></li>
-              <li><a href="#" className="hover:text-white hover:pl-1 transition-all duration-300">About Us</a></li>
-              <li><a href="#" className="hover:text-white hover:pl-1 transition-all duration-300">Chug Club</a></li>
+              <li><a href="#home" className="hover:text-white hover:pl-1 transition-all duration-300">Home</a></li>
+              <li><a href="#flavors" className="hover:text-white hover:pl-1 transition-all duration-300">All Flavors</a></li>
+              <li><a href="#about-us" className="hover:text-white hover:pl-1 transition-all duration-300">About Us</a></li>
             </ul>
           </div>
         </div>
