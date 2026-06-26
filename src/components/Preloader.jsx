@@ -33,7 +33,7 @@ const Preloader = ({ onComplete }) => {
     tl.to(logoRef.current, {
       opacity: 1,
       y: 0,
-      duration: 0.9,
+      duration: 0.4,
       ease: "power3.out",
     });
 
@@ -41,17 +41,17 @@ const Preloader = ({ onComplete }) => {
     tl.to(tagRef.current, {
       opacity: 1,
       y: 0,
-      duration: 0.5,
+      duration: 0.3,
       ease: "power2.out",
-    }, "-=0.4");
+    }, "-=0.2");
 
     // 3. Progress counter + ring animate together
-    tl.to(progressTextRef.current, { opacity: 1, duration: 0.3 }, "-=0.2");
+    tl.to(progressTextRef.current, { opacity: 1, duration: 0.2 }, "-=0.1");
 
     const countObj = { val: 0 };
     tl.to(countObj, {
       val: 100,
-      duration: 2.2,
+      duration: 0.8,
       ease: "power1.inOut",
       onUpdate: () => {
         const v = Math.round(countObj.val);
@@ -68,20 +68,20 @@ const Preloader = ({ onComplete }) => {
     }, "-=0.1");
 
     // 4. Brief pause at 100%
-    tl.to({}, { duration: 0.4 });
+    tl.to({}, { duration: 0.1 });
 
     // 5. Logo + ring scale up & fade out together
     tl.to([logoRef.current, tagRef.current, progressTextRef.current], {
       opacity: 0,
       scale: 1.15,
-      duration: 0.45,
+      duration: 0.3,
       ease: "power2.in",
     });
 
     // 6. Full overlay iris-scales up to reveal site
     tl.to(overlayRef.current, {
       clipPath: "circle(0% at 50% 50%)",
-      duration: 0.8,
+      duration: 0.4,
       ease: "power3.inOut",
       onComplete: () => {
         if (onComplete) onComplete();

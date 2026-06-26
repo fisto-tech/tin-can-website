@@ -62,29 +62,33 @@ const HeroSection = () => {
   });
 
   return (
-    <section className="bg-main-bg">
+    <section id="home" className="bg-red-brown">
       <div className="hero-container">
         {isTablet ? (
           <>
+            <div className="absolute inset-0 bg-gradient-to-b from-[#faeade] to-[#e3d3bc]"></div>
             {isMobile && (
               <img
-                src="/images/hero-bg.png"
-                className="absolute bottom-40 size-full object-cover"
+                src="/images/hero-bg.webp"
+                className="absolute inset-0 size-full object-cover opacity-20 mix-blend-multiply"
               />
             )}
             <img
-              src="/images/hero-img.png"
-              className="absolute bottom-0 left-1/2 -translate-x-1/2 object-auto"
+              src="/images/hero-img.webp"
+              className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[90%] md:w-auto max-h-[50vh] md:max-h-[60vh] object-contain"
             />
           </>
         ) : (
-          <video
-            src="/videos/Hero-New-Bg.mp4"
-            autoPlay
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-          />
+          <>
+            <video
+              src="/videos/Hero-New-Bg.mp4"
+              autoPlay
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black/40 z-0"></div>
+          </>
         )}
         <div className="hero-content opacity-0">
           <div className="overflow-hidden">

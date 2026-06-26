@@ -65,7 +65,7 @@ const NutritionSection = () => {
   });
 
   return (
-    <section className="nutrition-section">
+    <section id="nutrition" className="nutrition-section">
       <img
         src="/images/slider-dip.png"
         alt=""

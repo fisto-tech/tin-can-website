@@ -5,7 +5,7 @@ const NavBar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-[60] flex justify-between items-center md:px-10 px-5 py-6 pointer-events-none">
+      <nav className="fixed top-0 left-0 w-full z-[70] flex justify-between items-center md:px-10 px-5 py-6 pointer-events-none">
         <a href="#" className="pointer-events-auto">
           <img 
             src="/images/zestra-transparent-logo.webp" 
@@ -28,16 +28,17 @@ const NavBar = () => {
 
       {/* Fullscreen Overlay Menu */}
       <div 
-        className={`fixed inset-0 z-50 bg-[#0a0a0a]/95 backdrop-blur-lg flex flex-col items-center justify-center transition-all duration-500 origin-top ${
+        className={`fixed inset-0 z-[60] bg-[#0a0a0a]/95 backdrop-blur-lg flex flex-col items-center justify-center transition-all duration-500 origin-top ${
           isOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'
         }`}
       >
         <div className="flex flex-col items-center gap-8 text-white font-header text-3xl md:text-5xl uppercase tracking-widest mt-10">
-          <a href="#" onClick={() => setIsOpen(false)} className="hover:text-gray-400 hover:scale-105 transition-all">Home</a>
-          <a href="#" onClick={() => setIsOpen(false)} className="hover:text-gray-400 hover:scale-105 transition-all">Flavors</a>
-          <a href="#" onClick={() => setIsOpen(false)} className="hover:text-gray-400 hover:scale-105 transition-all">About Us</a>
-          <a href="#" onClick={() => setIsOpen(false)} className="hover:text-gray-400 hover:scale-105 transition-all">Chug Club</a>
-          <a href="#" onClick={() => setIsOpen(false)} className="hover:text-gray-400 hover:scale-105 transition-all">Contact</a>
+          <a href="#home" onClick={() => setIsOpen(false)} className="hover:text-gray-400 hover:scale-105 transition-all">Home</a>
+          <a href="#about-us" onClick={() => setIsOpen(false)} className="hover:text-gray-400 hover:scale-105 transition-all">About Us</a>
+          <a href="#flavors" onClick={() => setIsOpen(false)} className="hover:text-gray-400 hover:scale-105 transition-all">All Flavors</a>
+          <a href="#nutrition" onClick={() => setIsOpen(false)} className="hover:text-gray-400 hover:scale-105 transition-all">Nutrition</a>
+          <a href="#chug-club" onClick={() => setIsOpen(false)} className="hover:text-gray-400 hover:scale-105 transition-all">Reviews</a>
+          <a href="#contact" onClick={() => setIsOpen(false)} className="hover:text-gray-400 hover:scale-105 transition-all">Contact Us</a>
         </div>
         
         {/* Footer info inside menu */}

@@ -170,7 +170,7 @@ const FlavorSlider = () => {
               />
             </div>
 
-            <h1>{flavor.productName}</h1>
+            <h1 className={flavor.textColor}>{flavor.productName}</h1>
           </div>
         ))}
       </div>

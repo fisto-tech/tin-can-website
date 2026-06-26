@@ -3,7 +3,8 @@ import { useMediaQuery } from "react-responsive";
 const FooterSection = () => {
   return (
     <footer 
-      className="relative z-50 bg-[#050505] text-white py-12 px-8 md:px-16 mt-85 rounded-t-[30px] border-t border-white/10" 
+      id="contact"
+      className="relative z-50 bg-[#050505] text-white py-12 px-8 md:px-16 rounded-t-[30px] border-t border-white/10" 
       style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: 'normal' }}
     >
       <div className="max-w-[1400px] mx-auto">

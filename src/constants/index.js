@@ -5,6 +5,7 @@ const flavorlists = [
     productImage: "blueberry",
     productProps: "blueberry-prop",
     color: "brown",
+    textColor: "text-[#5e3a8c]",
     rotation: "md:rotate-[-8deg] rotate-0",
   },
   {
@@ -13,6 +14,7 @@ const flavorlists = [
     productImage: "dragon-fruit",
     productProps: "dragon-fruit-prop",
     color: "red",
+    textColor: "text-white",
     rotation: "md:rotate-[8deg] rotate-0",
   },
   {
@@ -21,6 +23,7 @@ const flavorlists = [
     productImage: "kiwi",
     productProps: "kiwi-prop",
     color: "blue",
+    textColor: "text-[#14532d]",
     rotation: "md:rotate-[-8deg] rotate-0",
   },
   {
@@ -29,6 +32,7 @@ const flavorlists = [
     productImage: "orange",
     productProps: "orange-prop",
     color: "orange",
+    textColor: "text-white",
     rotation: "md:rotate-[8deg] rotate-0",
   },
   {
@@ -37,6 +41,7 @@ const flavorlists = [
     productImage: "watermelon",
     productProps: "watermelon-prop",
     color: "white",
+    textColor: "text-[#be123c]",
     rotation: "md:rotate-[-8deg] rotate-0",
   },
   {
@@ -45,6 +50,7 @@ const flavorlists = [
     productImage: "mango",
     productProps: "mango-prop",
     color: "black",
+    textColor: "text-[#f59e0b]",
     rotation: "md:rotate-[8deg] rotate-0",
   },
 ];
