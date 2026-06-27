@@ -61,7 +61,7 @@ const TestimonialSection = () => {
       <div className="absolute size-full flex flex-col items-center pt-[5vw]">
         <h1 className="text-dark-brown first-title">Taste</h1>
         <h1 className="text-light-brown sec-title">The</h1>
-        <h1 className="text-dark-brown third-title">Difference</h1>
+        <h1 className="text-dark-brown third-title">Magic</h1>
       </div>
 
       <div className="pin-box">
@@ -72,7 +72,7 @@ const TestimonialSection = () => {
           >
             <img
               src={`/images/taste-the-difference/f${(index % 7) + 1}.webp`}
-              alt="Taste the difference"
+              alt="Taste the magic"
               className="size-full object-cover"
             />
           </div>

@@ -4,7 +4,7 @@ const FooterSection = () => {
   return (
     <footer 
       id="contact"
-      className="relative z-50 bg-[#050505] text-white py-12 px-8 md:px-16 rounded-t-[30px] border-t border-white/10" 
+      className="relative z-50 bg-[#050505] text-white mt-[3vw] py-12 px-8 md:px-16 rounded-t-[30px] border-t border-white/10" 
       style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: 'normal' }}
     >
       <div className="max-w-[1400px] mx-auto">

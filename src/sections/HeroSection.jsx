@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
@@ -12,14 +13,22 @@ const HeroSection = () => {
     query: "(max-width: 1024px)",
   });
 
+  const [videoEnded, setVideoEnded] = useState(isTablet);
+
+  useEffect(() => {
+    if (isTablet) {
+      setVideoEnded(true);
+    }
+  }, [isTablet]);
+
   useGSAP(() => {
+    if (!videoEnded) return;
+
     const titleSplit = SplitText.create(".hero-title", {
       type: "chars",
     });
 
-    const tl = gsap.timeline({
-      delay: 1,
-    });
+    const tl = gsap.timeline();
 
     tl.to(".hero-content", {
       opacity: 1,
@@ -44,7 +53,9 @@ const HeroSection = () => {
         },
         "-=0.5"
       );
+  }, [videoEnded]);
 
+  useGSAP(() => {
     const heroTl = gsap.timeline({
       scrollTrigger: {
         trigger: ".hero-container",
@@ -85,9 +96,10 @@ const HeroSection = () => {
               autoPlay
               muted
               playsInline
+              onEnded={() => setVideoEnded(true)}
               className="absolute inset-0 w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black/40 z-0"></div>
+            <div className={`absolute inset-0 bg-black/40 z-0 transition-opacity duration-1000 ${videoEnded ? "opacity-100" : "opacity-0 pointer-events-none"}`}></div>
           </>
         )}
         <div className="hero-content opacity-0">
