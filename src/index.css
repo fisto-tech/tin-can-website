@@ -74,7 +74,7 @@ body::-webkit-scrollbar {
         @apply rotate-[-3deg] mb-8 border-[.5vw] border-milk;
 
         .hero-subtitle {
-          @apply bg-mid-brown;
+          @apply bg-mid-brown overflow-hidden;
         }
 
         h1 {
@@ -236,7 +236,13 @@ body::-webkit-scrollbar {
       @apply flex items-center justify-center w-full ps-52 absolute 2xl:bottom-32 bottom-[50vh];
 
       .vd-card {
-        @apply md:w-96 w-80 flex-none md:rounded-[2vw] rounded-3xl -ms-44 overflow-hidden 2xl:relative absolute border-[.5vw] border-milk;
+        @apply md:w-96 w-80 flex-none md:rounded-[2vw] rounded-3xl -ms-44 overflow-hidden 2xl:relative absolute border-[.5vw] border-milk transition-all duration-300 ease-out;
+
+        &:hover {
+          z-index: 50;
+          transform: scale(1.08) translateY(-30px) !important;
+          box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        }
       }
     }
 

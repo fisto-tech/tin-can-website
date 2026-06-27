@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
@@ -14,12 +14,53 @@ const HeroSection = () => {
   });
 
   const [videoEnded, setVideoEnded] = useState(isTablet);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const isFirstRender = useRef(true);
+
+  const words = [
+    "Coconut Tender",
+    "100% Natural",
+    "Pure Hydration",
+    "Electrolytes",
+    "Fresh Energy"
+  ];
 
   useEffect(() => {
     if (isTablet) {
       setVideoEnded(true);
     }
   }, [isTablet]);
+
+  // Looping text slide cycle - only starts after video has ended / content revealed
+  useEffect(() => {
+    if (!videoEnded) return;
+
+    const timer = setInterval(() => {
+      isFirstRender.current = false;
+      gsap.to(".hero-text-inner", {
+        yPercent: -120,
+        opacity: 0,
+        duration: 0.4,
+        ease: "power2.in",
+        onComplete: () => {
+          setCurrentWordIndex((prev) => (prev + 1) % words.length);
+        }
+      });
+    }, 3500);
+
+    return () => clearInterval(timer);
+  }, [videoEnded]);
+
+  // Slide-in animation for new word
+  useEffect(() => {
+    if (!videoEnded) return;
+    if (isFirstRender.current) return;
+
+    gsap.fromTo(".hero-text-inner", 
+      { yPercent: 120, opacity: 0 },
+      { yPercent: 0, opacity: 1, duration: 0.6, ease: "power2.out" }
+    );
+  }, [currentWordIndex, videoEnded]);
 
   useGSAP(() => {
     if (!videoEnded) return;
@@ -36,7 +77,7 @@ const HeroSection = () => {
       ease: "power1.inOut",
     })
       .to(
-        ".hero-text-scroll",
+        " .hero-text-scroll",
         {
           duration: 1,
           clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
@@ -113,7 +154,9 @@ const HeroSection = () => {
             className="hero-text-scroll"
           >
             <div className="hero-subtitle">
-              <h1>Coconut Tender</h1>
+              <h1 className="hero-text-inner inline-block w-full">
+                {words[currentWordIndex]}
+              </h1>
             </div>
           </div>
 
