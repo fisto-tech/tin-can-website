@@ -70,11 +70,13 @@ const TestimonialSection = () => {
             key={index}
             className={`vd-card ${card.translation} ${card.rotation}`}
           >
-            <img
-              src={`/images/taste-the-difference/f${(index % 7) + 1}.webp`}
-              alt="Taste the magic"
-              className="size-full object-cover"
-            />
+            <div className="vd-card-inner">
+              <img
+                src={`/images/taste-the-difference/f${(index % 7) + 1}.webp`}
+                alt="Taste the magic"
+                className="size-full object-cover"
+              />
+            </div>
           </div>
         ))}
       </div>

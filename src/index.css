@@ -230,18 +230,25 @@ body::-webkit-scrollbar {
   }
 
   .testimonials-section {
-    @apply bg-milk relative w-full h-[120dvh] md:h-[140dvh];
+    @apply bg-milk relative w-full h-[120dvh] md:h-[140dvh] overflow-hidden;
 
     .pin-box {
       @apply flex items-center justify-center w-full ps-52 absolute 2xl:bottom-32 bottom-[50vh];
 
       .vd-card {
-        @apply md:w-96 w-80 flex-none md:rounded-[2vw] rounded-3xl -ms-44 overflow-hidden 2xl:relative absolute border-[.5vw] border-milk transition-all duration-300 ease-out;
+        @apply md:w-96 w-80 flex-none -ms-44 md:relative absolute;
 
         &:hover {
           z-index: 50;
-          transform: scale(1.08) translateY(-30px) !important;
-          box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        }
+
+        .vd-card-inner {
+          @apply w-full h-full md:rounded-[2vw] rounded-3xl overflow-hidden border-[.5vw] border-milk transition-all duration-300 ease-out;
+
+          &:hover {
+            transform: scale(1.08) translateY(-30px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+          }
         }
       }
     }

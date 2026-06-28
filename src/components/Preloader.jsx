@@ -1,14 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
-const Preloader = ({ onComplete }) => {
+const Preloader = ({ isVideoLoaded, onComplete }) => {
   const overlayRef = useRef(null);
+  const bgRef = useRef(null);
   const logoRef = useRef(null);
   const progressTextRef = useRef(null);
   const ringRef = useRef(null);
   const dotRef = useRef(null);
   const tagRef = useRef(null);
   const [progress, setProgress] = useState(0);
+  const progressVal = useRef({ val: 0 });
+  const isLoadedTriggered = useRef(false);
 
   // SVG ring setup
   const radius = 90;
@@ -23,38 +26,47 @@ const Preloader = ({ onComplete }) => {
   }, [circumference]);
 
   useEffect(() => {
-    const tl = gsap.timeline();
+    const entranceTl = gsap.timeline();
 
     // Initial state
-    gsap.set([logoRef.current, tagRef.current], { opacity: 0, y: 30 });
+    gsap.set([logoRef.current, tagRef.current], { opacity: 0, y: 30, scale: 1 });
     gsap.set(progressTextRef.current, { opacity: 0 });
+    gsap.set(bgRef.current, { scale: 1.12 });
+    gsap.set(overlayRef.current, { opacity: 1, scale: 1 });
 
     // 1. Logo rises in
-    tl.to(logoRef.current, {
+    entranceTl.to(logoRef.current, {
       opacity: 1,
       y: 0,
-      duration: 0.4,
+      duration: 0.6,
       ease: "power3.out",
     });
 
     // 2. Tag line fades
-    tl.to(tagRef.current, {
+    entranceTl.to(tagRef.current, {
       opacity: 1,
       y: 0,
-      duration: 0.3,
+      duration: 0.5,
       ease: "power2.out",
-    }, "-=0.2");
+    }, "-=0.3");
 
     // 3. Progress counter + ring animate together
-    tl.to(progressTextRef.current, { opacity: 1, duration: 0.2 }, "-=0.1");
+    entranceTl.to(progressTextRef.current, { opacity: 1, duration: 0.3 }, "-=0.2");
 
-    const countObj = { val: 0 };
-    tl.to(countObj, {
-      val: 100,
-      duration: 0.8,
-      ease: "power1.inOut",
+    // Slow, subtle zoom-in of background image during loading
+    gsap.to(bgRef.current, {
+      scale: 1.25,
+      duration: 10,
+      ease: "none",
+    });
+
+    // Animate progress up to 90%
+    const tween = gsap.to(progressVal.current, {
+      val: 90,
+      duration: 2.0,
+      ease: "power1.out",
       onUpdate: () => {
-        const v = Math.round(countObj.val);
+        const v = Math.round(progressVal.current.val);
         setProgress(v);
         if (progressTextRef.current) {
           progressTextRef.current.textContent = v + "%";
@@ -65,38 +77,97 @@ const Preloader = ({ onComplete }) => {
           ringRef.current.style.strokeDashoffset = offset;
         }
       },
-    }, "-=0.1");
-
-    // 4. Brief pause at 100%
-    tl.to({}, { duration: 0.1 });
-
-    // 5. Logo + ring scale up & fade out together
-    tl.to([logoRef.current, tagRef.current, progressTextRef.current], {
-      opacity: 0,
-      scale: 1.15,
-      duration: 0.3,
-      ease: "power2.in",
     });
 
-    // 6. Full overlay iris-scales up to reveal site
-    tl.to(overlayRef.current, {
-      clipPath: "circle(0% at 50% 50%)",
-      duration: 0.4,
-      ease: "power3.inOut",
+    return () => {
+      entranceTl.kill();
+      gsap.killTweensOf(bgRef.current);
+      tween.kill();
+    };
+  }, [circumference]);
+
+  useEffect(() => {
+    if (!isVideoLoaded || isLoadedTriggered.current) return;
+    isLoadedTriggered.current = true;
+
+    // Stop the progress-to-90 tween
+    gsap.killTweensOf(progressVal.current);
+
+    const completeTl = gsap.timeline();
+
+    // 4. Animate to 100% from current value
+    completeTl.to(progressVal.current, {
+      val: 100,
+      duration: 0.5,
+      ease: "power2.out",
+      onUpdate: () => {
+        const v = Math.round(progressVal.current.val);
+        setProgress(v);
+        if (progressTextRef.current) {
+          progressTextRef.current.textContent = v + "%";
+        }
+        if (ringRef.current) {
+          const offset = circumference - (v / 100) * circumference;
+          ringRef.current.style.strokeDashoffset = offset;
+        }
+      },
+    });
+
+    // 5. Brief pause at 100%
+    completeTl.to({}, { duration: 0.3 });
+
+    // 6. Logo + ring scale down (zoom out) & fade out together
+    completeTl.to([logoRef.current, tagRef.current, progressTextRef.current], {
+      opacity: 0,
+      scale: 0.85,
+      duration: 0.5,
+      ease: "power2.inOut",
+    });
+
+    // 7. Background image zooms out (scales back) and entire overlay fades/scales down
+    completeTl.to(bgRef.current, {
+      scale: 1.0,
+      duration: 0.8,
+      ease: "power2.inOut",
+    }, "-=0.5");
+
+    completeTl.to(overlayRef.current, {
+      opacity: 0,
+      scale: 0.95, // subtle zoom out of the whole screen overlay
+      duration: 0.8,
+      ease: "power2.inOut",
       onComplete: () => {
         if (onComplete) onComplete();
       },
-    }, "-=0.1");
+    }, "-=0.8");
 
-    return () => tl.kill();
-  }, [onComplete, circumference]);
+    return () => {
+      completeTl.kill();
+    };
+  }, [isVideoLoaded, onComplete, circumference]);
 
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white"
-      style={{ clipPath: "circle(150% at 50% 50%)" }}
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden"
+      style={{
+        backgroundColor: "#faeade", // Fallback theme color
+        transformOrigin: "center center",
+      }}
     >
+      {/* Background Image */}
+      <div
+        ref={bgRef}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat pointer-events-none"
+        style={{
+          backgroundImage: "url('/images/hero-bg.webp')",
+          transformOrigin: "center center",
+        }}
+      />
+
+      {/* Warm brand color overlay for optimal text contrast */}
+      <div className="absolute inset-0 bg-[#faeade]/85 pointer-events-none" />
+
       {/* Circular progress ring */}
       <div className="relative flex items-center justify-center mb-8">
         <svg

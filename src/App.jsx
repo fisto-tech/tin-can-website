@@ -17,6 +17,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   useEffect(() => {
     // Lock scroll during preloader
@@ -59,27 +60,30 @@ const App = () => {
 
   return (
     <>
-      {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
-      {!isLoading && (
-        <main>
-          <NavBar />
+      <main>
+        <NavBar />
+        <div>
           <div>
+            <HeroSection isLoading={isLoading} onVideoLoaded={() => setIsVideoLoaded(true)} />
+            <MessageSection />
+            <FramesSection />
+            <FlavorSection />
+            <NutritionSection />
+
             <div>
-              <HeroSection />
-              <MessageSection />
-              <FramesSection />
-              <FlavorSection />
-              <NutritionSection />
-
-              <div>
-                <BenefitSection />
-                <TestimonialSection />
-              </div>
-
-              <FooterSection />
+              <BenefitSection />
+              <TestimonialSection />
             </div>
+
+            <FooterSection />
           </div>
-        </main>
+        </div>
+      </main>
+      {isLoading && (
+        <Preloader
+          isVideoLoaded={isVideoLoaded}
+          onComplete={() => setIsLoading(false)}
+        />
       )}
     </>
   );

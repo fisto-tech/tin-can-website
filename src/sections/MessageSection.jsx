@@ -51,6 +51,19 @@ const MessageSection = () => {
       ease: "circ.inOut",
     });
 
+    // Infinite floating/bobbing and swinging animation for "Stay Fresh"
+    gsap.fromTo(".msg-text-scroll", 
+      { rotation: 1, y: -10 },
+      {
+        rotation: 5,
+        y: 10,
+        duration: 2.2,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+      }
+    );
+
     const paragraphTl = gsap.timeline({
       scrollTrigger: {
         trigger: ".message-content p",

@@ -10,41 +10,47 @@ const FooterSection = () => {
       <div className="max-w-[1400px] mx-auto">
         
         {/* Main Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-10">
+        <div className="flex flex-col md:flex-row justify-between gap-10 mb-10">
           
           {/* Logo & Description Column */}
-          <div className="md:col-span-5 flex flex-col">
+          <div className="flex flex-col max-w-sm">
             <img 
               src="/images/zestra-transparent-logo.webp" 
               alt="Zestra Logo" 
               className="w-36 md:w-48 object-contain mb-6 drop-shadow-xl" 
             />
-            <p className="text-gray-300 text-base font-normal leading-relaxed max-w-sm">
+            <p className="text-gray-300 text-base font-normal leading-relaxed">
               Bringing you the ultimate taste experience. Sip, share, and stay refreshed anywhere you go.
             </p>
           </div>
 
           {/* Contact Info Column */}
-          <div className="md:col-span-4">
+          <div className="flex flex-col min-w-[200px]">
             <h3 className="text-white text-base font-bold mb-5 tracking-wider uppercase">Contact Us</h3>
-            <div className="space-y-5 text-gray-300 text-base font-normal">
+            <div className="space-y-3 text-gray-300 text-base font-normal">
               <div>
-                <p className="font-bold text-white mb-1">Address</p>
-                <p className="leading-snug">123 Flavor Street, Suite 400<br/>New York, NY 10001</p>
+                <p className="leading-snug">
+                  <span className="font-bold text-white">Address: </span>
+                  123 Flavor Street, Suite 400, New York, NY 10001
+                </p>
               </div>
               <div>
-                <p className="font-bold text-white mb-1">Email</p>
-                <a href="mailto:hello@zestra.com" className="hover:text-white transition-colors block">hello@zestra.com</a>
+                <p>
+                  <span className="font-bold text-white">Email: </span>
+                  <a href="mailto:hello@zestra.com" className="hover:text-white transition-colors inline">hello@zestra.com</a>
+                </p>
               </div>
               <div>
-                <p className="font-bold text-white mb-1">Phone</p>
-                <a href="tel:+1234567890" className="hover:text-white transition-colors block">+1 (234) 567-890</a>
+                <p>
+                  <span className="font-bold text-white">Phone: </span>
+                  <a href="tel:+1234567890" className="hover:text-white transition-colors inline">+1 (234) 567-890</a>
+                </p>
               </div>
             </div>
           </div>
 
           {/* Links Column */}
-          <div className="md:col-span-3">
+          <div className="flex flex-col min-w-[150px]">
             <h3 className="text-white text-base font-bold mb-5 tracking-wider uppercase">Explore</h3>
             <ul className="space-y-4 text-gray-300 text-base font-normal">
               <li><a href="#home" className="hover:text-white hover:pl-1 transition-all duration-300">Home</a></li>

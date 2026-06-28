@@ -4,7 +4,7 @@ import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import { useMediaQuery } from "react-responsive";
 
-const HeroSection = () => {
+const HeroSection = ({ isLoading, onVideoLoaded }) => {
   const isMobile = useMediaQuery({
     query: "(max-width: 768px)",
   });
@@ -16,6 +16,15 @@ const HeroSection = () => {
   const [videoEnded, setVideoEnded] = useState(isTablet);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const isFirstRender = useRef(true);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (!isLoading && videoRef.current) {
+      videoRef.current.play().catch((err) => {
+        console.log("Video auto-play interrupted:", err);
+      });
+    }
+  }, [isLoading]);
 
   const words = [
     "Coconut Tender",
@@ -28,8 +37,31 @@ const HeroSection = () => {
   useEffect(() => {
     if (isTablet) {
       setVideoEnded(true);
+      if (onVideoLoaded) onVideoLoaded();
     }
-  }, [isTablet]);
+  }, [isTablet, onVideoLoaded]);
+
+  useEffect(() => {
+    if (isTablet) return;
+    const video = videoRef.current;
+    if (video) {
+      const handleLoaded = () => {
+        if (onVideoLoaded) onVideoLoaded();
+      };
+
+      if (video.readyState >= 3) {
+        handleLoaded();
+      } else {
+        video.addEventListener("canplaythrough", handleLoaded);
+        video.addEventListener("loadeddata", handleLoaded);
+      }
+
+      return () => {
+        video.removeEventListener("canplaythrough", handleLoaded);
+        video.removeEventListener("loadeddata", handleLoaded);
+      };
+    }
+  }, [isTablet, onVideoLoaded]);
 
   // Looping text slide cycle - only starts after video has ended / content revealed
   useEffect(() => {
@@ -133,10 +165,12 @@ const HeroSection = () => {
         ) : (
           <>
             <video
+              ref={videoRef}
               src="/videos/Hero-New-Bg.mp4"
-              autoPlay
               muted
               playsInline
+              onCanPlayThrough={onVideoLoaded}
+              onLoadedData={onVideoLoaded}
               onEnded={() => setVideoEnded(true)}
               className="absolute inset-0 w-full h-full object-cover"
             />
