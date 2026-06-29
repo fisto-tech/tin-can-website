@@ -235,15 +235,34 @@ body::-webkit-scrollbar {
     .pin-box {
       @apply flex items-center justify-center w-full ps-52 absolute 2xl:bottom-32 bottom-[50vh];
 
+      &:hover {
+        .vd-card .vd-card-inner img {
+          filter: grayscale(100%);
+          opacity: 0.9;
+        }
+      }
+
       .vd-card {
         @apply md:w-96 w-80 flex-none -ms-44 md:relative absolute;
+        z-index: 1;
+        transition: z-index 0s 0.3s;
 
         &:hover {
           z-index: 50;
+          transition: z-index 0s 0s;
+
+          .vd-card-inner img {
+            filter: grayscale(0%);
+            opacity: 1;
+          }
         }
 
         .vd-card-inner {
           @apply w-full h-full md:rounded-[2vw] rounded-3xl overflow-hidden border-[.5vw] border-milk transition-all duration-300 ease-out;
+
+          img {
+            transition: filter 0.3s ease-out, opacity 0.3s ease-out;
+          }
 
           &:hover {
             transform: scale(1.08) translateY(-30px);
