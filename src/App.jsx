@@ -18,6 +18,28 @@ gsap.registerPlugin(ScrollTrigger);
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isFontLoaded, setIsFontLoaded] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    const fontTimeout = setTimeout(() => {
+      if (active) {
+        setIsFontLoaded(true);
+      }
+    }, 2500);
+
+    document.fonts.ready.then(() => {
+      if (active) {
+        clearTimeout(fontTimeout);
+        setIsFontLoaded(true);
+      }
+    });
+
+    return () => {
+      active = false;
+      clearTimeout(fontTimeout);
+    };
+  }, []);
 
   useEffect(() => {
     // Lock scroll during preloader
@@ -81,7 +103,7 @@ const App = () => {
       </main>
       {isLoading && (
         <Preloader
-          isVideoLoaded={isVideoLoaded}
+          isVideoLoaded={isVideoLoaded && isFontLoaded}
           onComplete={() => setIsLoading(false)}
         />
       )}

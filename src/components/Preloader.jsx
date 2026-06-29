@@ -10,6 +10,7 @@ const Preloader = ({ isVideoLoaded, onComplete }) => {
   const dotRef = useRef(null);
   const tagRef = useRef(null);
   const [progress, setProgress] = useState(0);
+  const [isEntranceComplete, setIsEntranceComplete] = useState(false);
   const progressVal = useRef({ val: 0 });
   const isLoadedTriggered = useRef(false);
 
@@ -18,15 +19,9 @@ const Preloader = ({ isVideoLoaded, onComplete }) => {
   const circumference = 2 * Math.PI * radius;
 
   useEffect(() => {
-    // Stroke starts fully hidden, fills as progress increases
-    if (ringRef.current) {
-      ringRef.current.style.strokeDasharray = circumference;
-      ringRef.current.style.strokeDashoffset = circumference;
-    }
-  }, [circumference]);
-
-  useEffect(() => {
-    const entranceTl = gsap.timeline();
+    const entranceTl = gsap.timeline({
+      onComplete: () => setIsEntranceComplete(true)
+    });
 
     // Initial state
     gsap.set([logoRef.current, tagRef.current], { opacity: 0, y: 30, scale: 1 });
@@ -56,15 +51,15 @@ const Preloader = ({ isVideoLoaded, onComplete }) => {
     // Slow, subtle zoom-in of background image during loading
     gsap.to(bgRef.current, {
       scale: 1.25,
-      duration: 10,
+      duration: 15,
       ease: "none",
     });
 
-    // Animate progress up to 90%
+    // Animate progress up to 99% slowly to prevent it from showing "stuck"
     const tween = gsap.to(progressVal.current, {
-      val: 90,
-      duration: 2.0,
-      ease: "power1.out",
+      val: 99,
+      duration: 15.0,
+      ease: "power3.out",
       onUpdate: () => {
         const v = Math.round(progressVal.current.val);
         setProgress(v);
@@ -87,15 +82,17 @@ const Preloader = ({ isVideoLoaded, onComplete }) => {
   }, [circumference]);
 
   useEffect(() => {
-    if (!isVideoLoaded || isLoadedTriggered.current) return;
+    // Only proceed to completion when entrance is finished and video/fonts are loaded
+    if (!isVideoLoaded || !isEntranceComplete || isLoadedTriggered.current) return;
     isLoadedTriggered.current = true;
 
-    // Stop the progress-to-90 tween
+    // Stop the progress-to-99 tween and background zoom
     gsap.killTweensOf(progressVal.current);
+    gsap.killTweensOf(bgRef.current);
 
     const completeTl = gsap.timeline();
 
-    // 4. Animate to 100% from current value
+    // 4. Animate to 100% from current value smoothly
     completeTl.to(progressVal.current, {
       val: 100,
       duration: 0.5,
@@ -144,7 +141,7 @@ const Preloader = ({ isVideoLoaded, onComplete }) => {
     return () => {
       completeTl.kill();
     };
-  }, [isVideoLoaded, onComplete, circumference]);
+  }, [isVideoLoaded, isEntranceComplete, onComplete, circumference]);
 
   return (
     <div
@@ -183,7 +180,7 @@ const Preloader = ({ isVideoLoaded, onComplete }) => {
             cy="110"
             r={radius}
             fill="none"
-            stroke="#e0e0e0"
+            stroke="#e3d3bc"
             strokeWidth="1.5"
           />
           {/* Progress ring */}
@@ -193,9 +190,11 @@ const Preloader = ({ isVideoLoaded, onComplete }) => {
             cy="110"
             r={radius}
             fill="none"
-            stroke="#f5a623"
-            strokeWidth="2"
+            stroke="#084924"
+            strokeWidth="2.5"
             strokeLinecap="round"
+            strokeDasharray={circumference}
+            strokeDashoffset={circumference - (progress / 100) * circumference}
             style={{
               transition: "stroke-dashoffset 0.05s linear",
             }}
@@ -206,12 +205,12 @@ const Preloader = ({ isVideoLoaded, onComplete }) => {
         <div className="relative w-[220px] h-[220px]">
           <div
             ref={dotRef}
-            className="absolute w-2 h-2 rounded-full bg-[#f5a623]"
+            className="absolute w-2.5 h-2.5 rounded-full bg-[#f5a623]"
             style={{
               top: "50%",
               left: "50%",
               transform: `translate(-50%, -50%) rotate(${(progress / 100) * 360 - 90}deg) translate(${radius}px)`,
-              boxShadow: "0 0 10px #f5a623, 0 0 25px #f5a623aa",
+              boxShadow: "0 0 10px #f5a623, 0 0 20px #f5a623aa",
               transition: "transform 0.05s linear",
             }}
           />
@@ -231,8 +230,8 @@ const Preloader = ({ isVideoLoaded, onComplete }) => {
       {/* Brand tagline */}
       <p
         ref={tagRef}
-        className="text-[#084924] text-xs tracking-[0.45em] uppercase mb-5"
-        style={{ fontFamily: "system-ui, sans-serif" }}
+        className="text-[#084924] text-xs tracking-[0.4em] uppercase mb-2 font-medium"
+        style={{ fontFamily: "'Antonio', sans-serif" }}
       >
         Coconut Tender
       </p>
@@ -240,10 +239,10 @@ const Preloader = ({ isVideoLoaded, onComplete }) => {
       {/* Percentage */}
       <p
         ref={progressTextRef}
-        className="text-black/40 text-sm tabular-nums"
-        style={{ fontFamily: "system-ui, sans-serif" }}
+        className="text-[#084924]/60 text-sm font-bold tracking-wider tabular-nums"
+        style={{ fontFamily: "'Antonio', sans-serif" }}
       >
-        0%
+        {progress}%
       </p>
     </div>
   );
